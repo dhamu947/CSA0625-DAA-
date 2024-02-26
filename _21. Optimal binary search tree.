@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <limits.h>
+
+// Function to find the minimum of two numbers
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+// Function to construct optimal binary search tree
+int optimalBST(int keys[], int freq[], int n) {
+    // Create a 2D table to store the cost of optimal BST
+    int cost[n][n];
+
+    // Initialize all values in the table as 0
+    for (int i = 0; i < n; i++) {
+        cost[i][i] = freq[i];
+    }
+
+    // Consider chains of increasing length starting from 2
+    for (int chainLen = 2; chainLen <= n; chainLen++) {
+        for (int i = 0; i <= n - chainLen + 1; i++) {
+            int j = i + chainLen - 1;
+            cost[i][j] = INT_MAX;
+
+            // Try making all keys in interval keys[i..j] as root
+            for (int k = i; k <= j; k++) {
+                int leftCost = (k > i) ? cost[i][k - 1] : 0;
+                int rightCost = (k < j) ? cost[k + 1][j] : 0;
+                cost[i][j] = min(cost[i][j], leftCost + rightCost + freq[k]);
+            }
+        }
+    }
+
+    return cost[0][n - 1];
+}
+
+int main() {
+    int keys[] = {10, 12, 20};
+    int freq[] = {34, 8, 50};
+    int n = sizeof(keys) / sizeof(keys[0]);
+
+    printf("The cost of the optimal binary search tree is: %d\n", optimalBST(keys, freq, n));
+
+    return 0;
+}
+
