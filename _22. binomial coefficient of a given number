@@ -1,0 +1,36 @@
+#include <stdio.h>
+
+// Function to calculate binomial coefficient using dynamic programming
+unsigned long long binomialCoeff(int n, int k) {
+    unsigned long long C[n + 1][k + 1];
+    int i, j;
+
+    // Calculate value of binomial coefficient in bottom-up manner
+    for (i = 0; i <= n; i++) {
+        for (j = 0; j <= min(i, k); j++) {
+            // Base cases
+            if (j == 0 || j == i)
+                C[i][j] = 1;
+            else
+                C[i][j] = C[i - 1][j - 1] + C[i - 1][j];
+        }
+    }
+
+    return C[n][k];
+}
+
+// Function to find minimum of two numbers
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int main() {
+    int n, k;
+
+    printf("Enter the value of n and k (n choose k): ");
+    scanf("%d %d", &n, &k);
+
+    printf("Binomial coefficient C(%d, %d) = %llu\n", n, k, binomialCoeff(n, k));
+
+    return 0;
+}
