@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+// Function to check if a number is perfect
+int isPerfect(int num) {
+    int sum = 0;
+
+    // Find proper divisors and sum them
+    for (int i = 1; i <= num / 2; i++) {
+        if (num % i == 0) {
+            sum += i;
+        }
+    }
+
+    // Check if the sum of proper divisors equals the number itself
+    if (sum == num) {
+        return 1; // Number is perfect
+    } else {
+        return 0; // Number is not perfect
+    }
+}
+
+int main() {
+    int start, end;
+
+    printf("Enter the range (start end): ");
+    scanf("%d %d", &start, &end);
+
+    printf("Perfect numbers in the range %d to %d are: ", start, end);
+    for (int i = start; i <= end; i++) {
+        if (isPerfect(i)) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
