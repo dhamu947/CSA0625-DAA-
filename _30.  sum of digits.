@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+// Function to find the sum of digits
+int sumOfDigits(int num) {
+    int sum = 0;
+
+    // Iterate until num becomes 0
+    while (num != 0) {
+        // Extract the last digit and add it to sum
+        sum += num % 10;
+        // Remove the last digit from num
+        num /= 10;
+    }
+
+    return sum;
+}
+
+int main() {
+    int num;
+
+    printf("Enter a number: ");
+    scanf("%d", &num);
+
+    // Call the function to find the sum of digits
+    int sum = sumOfDigits(num);
+
+    printf("Sum of digits of %d is: %d\n", num, sum);
+
+    return 0;
+}
